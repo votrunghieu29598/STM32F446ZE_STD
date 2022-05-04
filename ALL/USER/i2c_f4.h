@@ -1,0 +1,53 @@
+#ifndef _I2C_F4_H_
+#define _I2C_F4_H_
+#include "main.h" 
+
+#define Send 							0									//ack
+#define Read 							1									//Nack
+#define Master_addr   		0x01
+#define Time_Out					20000
+//pin i2c
+typedef enum{
+ I2C1_PinB67 = 0x67,
+ I2C1_PinB89 = 0x89,
+ I2C1_PinB69 = 0x69,
+ I2C2_PinB1011 = 0xB1,
+ I2C2_PinF01 = 0xF0,
+ I2C2_PinF45 = 0xF4,
+ I2C3_PinAB84 = 0xA4,
+ I2C3_PinAC89 = 0xA9,
+} I2C_Pintypedef;
+// clock i2c
+typedef enum{
+ I2C_CLOCK_STANDARD = 100000,					  /*!< I2C Standard speed */
+ I2C_CLOCK_FAST_MODE = 400000, 					/*!< I2C Fast mode speed */
+ I2C_CLOCK_FAST_MODE_PLUS = 1000000,		/*!< I2C Fast mode plus speed */
+ I2C_CLOCK_HIGH_SPEED = 3400000, 				/*!< I2C High speed */
+} I2C_Clocktypedef;
+/**************************************************************/
+void I2C_Initstruct (I2C_TypeDef* I2Cx, I2C_Pintypedef I2C_Pin, I2C_Clocktypedef I2C_Clock );
+void I2C_Scan_ADD (I2C_TypeDef* I2Cx,uint8_t add);
+void I2C_Start (I2C_TypeDef* I2Cx,FunctionalState  NewState);
+void I2C_Stop (I2C_TypeDef* I2Cx,FunctionalState  NewState);
+void I2C_Send_ADD (I2C_TypeDef* I2Cx,uint8_t add, uint8_t Direction);
+void I2C_Write(I2C_TypeDef* I2Cx,uint8_t data);
+void I2C_Write_Data(I2C_TypeDef* I2Cx, uint8_t add, uint8_t reg, uint8_t data);
+void I2C_Write_MutiData(I2C_TypeDef* I2Cx, uint8_t add, uint8_t reg,uint8_t len, uint8_t* data);
+uint8_t I2C_Read (I2C_TypeDef* I2Cx,uint8_t ack);
+uint8_t I2C_Read_Data(I2C_TypeDef* I2Cx, uint8_t add, uint8_t reg);
+uint8_t I2C_Read_MutiData(I2C_TypeDef* I2Cx, uint8_t add, uint8_t reg, uint8_t len, uint8_t *data);
+uint8_t I2C_Check_Connected (I2C_TypeDef* I2Cx, uint8_t add,char* name);
+uint8_t I2C_Reset_ERR (I2C_TypeDef* I2Cx);
+void I2C1_DMA(uint8_t addres, uint8_t len, uint8_t *pdata);
+/**************************************************************/
+#endif
+
+
+
+
+
+
+
+
+
+
